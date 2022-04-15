@@ -182,8 +182,17 @@
         "settings": {
           "color_scheme": "background-1"
         }
+      },
+      "collection-tab": {
+        "type": "collection-tab",
+        "settings": {
+          "title": "collection"
+        }
       }
-    }
+    },
+    "content_for_index": [
+
+    ]
   },
   "presets": {
     "Default": {
