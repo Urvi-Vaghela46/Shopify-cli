@@ -266,12 +266,19 @@
           "settings": {
             "collection": "mattress"
           }
+        },
+        "2348e9b1-625a-4ad2-bc88-167e2ffa3c14": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "frontpage"
+          }
         }
       },
       "block_order": [
         "1650019699a29633c9-0",
         "1650019699a29633c9-1",
-        "1650019699a29633c9-2"
+        "1650019699a29633c9-2",
+        "2348e9b1-625a-4ad2-bc88-167e2ffa3c14"
       ],
       "settings": {
         "title": "hello bhau",
