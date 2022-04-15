@@ -186,7 +186,7 @@
       "collection-tab": {
         "type": "collection-tab",
         "settings": {
-          "header": "test"
+          "Heading": "test"
         }
       }
     },
