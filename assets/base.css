@@ -2883,11 +2883,11 @@ body {
 }
 
 .container--tabs {
-	list-style: none;
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	align-items: stretch;
+	list-style: none !important;
+	display: flex !important;
+	flex-direction: row ;
+	justify-content: flex-start !important;
+	align-items: stretch !important;
 
 	.tab {
 		min-height: 2em !important;
