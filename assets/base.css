@@ -2890,20 +2890,20 @@ body {
 	align-items: stretch;
 
 	.tab {
-		min-height: 2em;
-		padding: 1em;
-		box-sizing: border-box;
-		width: 100%;
-		text-align: center;
-		cursor: pointer;
-		background-color: black;
-		color: white;
-		transition: background-color 0.25s;
+		min-height: 2em !important;
+		padding: 1em !important;
+		box-sizing: border-box !important;
+		width: 100% !important;
+		text-align: center !important;
+		cursor: pointer !important;
+		background-color: black !important;
+		color: white !important;
+		transition: background-color 0.25s !important;
 
 		&:hover {
-			background-color: rgba(0, 0, 0, 0.25);
-			transition: background-color 0.25s;
-			color: white;
+			background-color: rgba(0, 0, 0, 0.25) !important;
+			transition: background-color 0.25s !important;
+			color: white !important;
 		}
 	}
 
