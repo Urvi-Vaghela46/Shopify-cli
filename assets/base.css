@@ -2885,7 +2885,7 @@ body {
 .container--tabs {
 	list-style: none !important;
 	display: flex !important;
-	flex-direction: row ;
+	flex-direction: row !important ;
 	justify-content: flex-start !important;
 	align-items: stretch !important;
 
