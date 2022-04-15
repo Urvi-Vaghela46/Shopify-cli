@@ -2888,7 +2888,7 @@ body {
 	flex-direction: row !important ;
 	justify-content: flex-start !important;
 	align-items: stretch !important;
-
+}
 	.tab {
 		min-height: 2em !important;
 		padding: 1em !important;
@@ -2912,7 +2912,7 @@ body {
 		color: black !important;
 		pointer-events: none ;
 	}
-}
+
 
 .content {
 	display: none;
