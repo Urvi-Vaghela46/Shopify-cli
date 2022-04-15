@@ -1,48 +1,22 @@
-<section class="filters">
-  <ul class="filters-content">
-    <button class="filters__button is-active" data-target="#projects">
-      Projects
-    </button>
-    <button class="filters__button" data-target="#skills">
-      Skills
-    </button>
-    <button class="filters__button" data-target="#experience">
-      Experience
-    </button>
-  </ul>
+<div class="container">
+	<ul class="container--tabs">
+		<li class="tab tabs--active">Tab 1</li>
+		<li class="tab">Tab 2</li>
+		<li class="tab">Tab 3</li>
+	</ul>
 
-  <div>
-    <div data-content class="is-active" id="projects">
-      <h2>Project</h2>
-    </div>
-
-    <div data-content id="skills">
-      <h2>Skills</h2>
-    </div>
-    <div data-content id="experience">
-      <h2>Experience</h2>
-    </div>
-  </div>
-</section>
-
-{% javascript %}
-const tabs = document.querySelectorAll("[data-target]"),
-  tabContents = document.querySelectorAll("[data-content]");
-
-tabs.forEach((tab) => {
-  tab.addEventListener("click", () => {
-    const target = document.querySelector(tab.dataset.target);
-
-    tabContents.forEach((tc) => {
-      tc.classList.remove("is-active");
-    });
-    target.classList.add("is-active");
-
-    tabs.forEach((t) => {
-      t.classList.remove("is-active");
-    });
-    tab.classList.add("is-active");
-  });
-});
-
-{% endjavascript %}
+	<div class="container--content">
+		<div class="content content--active">
+			<h1>This is tab 1</h1>
+			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque distinctio laborum, perferendis quam enim alias laboriosam? Nisi itaque quidem suscipit quod, nobis libero repellendus minima? Officia unde impedit sequi suscipit?</p>
+		</div>
+		<div class="content">
+			<h1>This is tab 2</h1>
+			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur doloribus necessitatibus possimus. Sapiente aspernatur neque atque in eum tenetur id!</p>
+		</div>
+		<div class="content">
+			<h1>This is tab 3</h1>
+			<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam esse voluptas minus autem, veniam dolor, debitis consequuntur dignissimos libero quibusdam consequatur. Enim, pariatur deserunt. Officiis!</p>
+		</div>
+	</div>
+</div>
