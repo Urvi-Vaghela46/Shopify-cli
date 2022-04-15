@@ -2875,14 +2875,14 @@ details-disclosure > details {
     column-gap: 0.5rem !important;
   }
   &__button {
-    width: 100%;
-    border: none;
-    outline: none;
-    padding: 1rem;
-    transition: 0.3s;
-    border-radius: 0.5rem;
+    width: 100% !important;
+    border: none !important;
+    outline: none !important;
+    padding: 1rem !important;
+    transition: 0.3s !important;
+    border-radius: 0.5rem !important;
     &:hover {
-      background-color: #fff;
+      background-color: #fff !important;
     }
   }
 }
@@ -2894,14 +2894,14 @@ details-disclosure > details {
 
 /* Hide*/
 .filters [data-content] {
-  display: none;
+  display: none !important;
 }
 [data-content].is-active[data-content] {
-  display: grid;
+  display: grid !important;
 }
 [data-target].is-active {
-  background-color: #4042f6;
-  color: #fff;
+  background-color: #4042f6 !important;
+  color: #fff !important;
 }
 
 /* End Custom Css */
