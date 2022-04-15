@@ -180,9 +180,9 @@
 {% endschema %}
 <div class="container">
 	<ul class="container--tabs"> 
+       {%- for block in section.blocks -%}
       <li class="tab">{{ section.settings.title }}</li>
-       <h2 class="collection-list-title ">{{ section.settings.title | escape }}</h2>
-
+ 		{%- endfor -%}
       </ul>
 	<div class="container--content">
 <!--tab  1 -->
