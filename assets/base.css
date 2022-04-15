@@ -2908,17 +2908,17 @@ body {
 	}
 
 	.tabs--active {
-		background-color: #fff;
-		color: black;
-		pointer-events: none;
+		background-color: #fff !important;
+		color: black !important;
+		pointer-events: none !important;
 	}
 }
 
 .content {
-	display: none;
-	padding: 3em;
+	display: none !important;
+	padding: 3em !important;
 
-	text-align: center;
+	text-align: center !important;
 }
 
 .content--active {
