@@ -2863,19 +2863,16 @@ details-disclosure > details {
   }
 }
 /* Custom css start */
-  body {
-  background: #fff;
-}
 .filters {
   font-family: sans-serif;
   &-content {
-    margin: 2rem 0 2.5rem;
-    background-color: #eee;
-    padding: 0.375rem;
-    border-radius: 0.75rem;
-    display: flex;
-    justify-content: space-between;
-    column-gap: 0.5rem;
+    margin: 2rem 0 2.5rem !important;
+    background-color: #eee !important;
+    padding: 0.375rem !important;
+    border-radius: 0.75rem !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    column-gap: 0.5rem !important;
   }
   &__button {
     width: 100%;
