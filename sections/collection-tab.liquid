@@ -184,13 +184,6 @@
 		<li class="tab">Tab 2</li>
 		<li class="tab">Tab 3</li>
 	</ul>
-<div class="c-title--decoration">
-  {% for collection in collections.productlist limit: 5000 %}
-    {%- if collection.handle contains 'new-20' -%}
-      <h1>{{ collection.title }}</h1>
-    {%- endif -%}
-  {% endfor %}
-</div>
 	<div class="container--content">
 		<div class="content content--active">
           <h1>This is</h1>
