@@ -272,12 +272,20 @@
             "heading": "html",
             "html": "hello i am tester"
           }
+        },
+        "a712bfd5-f534-468a-8c62-d039ad698989": {
+          "type": "liquid",
+          "settings": {
+            "heading": "liquid",
+            "liquid": "kya karu"
+          }
         }
       },
       "block_order": [
         "096924d7-3291-4bec-a94d-470ea0d2c682",
         "32001a3f-b050-4207-a5e0-f4946f8e7892",
-        "beea0507-870b-4a9a-a607-31dab5f51569"
+        "beea0507-870b-4a9a-a607-31dab5f51569",
+        "a712bfd5-f534-468a-8c62-d039ad698989"
       ],
       "settings": {
         "section_title": "Talk about your brand",
