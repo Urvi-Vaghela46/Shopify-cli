@@ -1,275 +1,332 @@
+<div class="tab-section">
+    <div class="page-width">
+        <div class="section-header text-center">
+            {% if section.settings.section_title != blank %}
+            <h2 class="h2">{{ section.settings.section_title | escape }}</h2>
+            {% endif %}
+            {% if section.settings.subheading != blank %}
+            <div class="rte">{{ section.settings.subheading }}</div>
+            {% endif %}
+        </div>
+        <div class="tab-container">
+            <!-- Tab items -->
+            <div class="tabs">
+                {% for block in section.blocks %}
+                <div class="tab-item {% if forloop.first == true %}active{% endif %}">
+                    {% case block.type %}
+                    {% when 'image' %}
+                    {{ block.settings.heading }}
+                    {% when 'html' %}
+                    {{ block.settings.heading }}
+                    {% when 'liquid' %}
+                    {{ block.settings.heading }}
+                    {% when 'collection' %}
+                    {{ block.settings.heading }}
+                    {% endcase %}
+                </div>
+                {% endfor %}
+                <div class="line"></div>
+            </div>
+            <!-- Tab content -->
+            <div class="tab-content">
+                {% for block in section.blocks %}
+                <div class="tab-pane {% if forloop.first == true %}active{% endif %}">
+                    {% case block.type %}
+                    {% when 'image' %}
+                    {{ block.settings.image | img_url: '2048x' | img_tag }}
+                    {% when 'html' %}
+                    {{ block.settings.html }}
+                    {% when 'liquid' %}
+                    {{ block.settings.liquid }}
+                    {% when 'collection' %}
+                    {%- liquid
+                    assign collection = collections[block.settings.collection]
+                    case block.settings.grid
+                    when 2
+                    assign max_height = 530
+                    assign grid_item_width = 'medium-up--one-half'
+                    when 3
+                    assign max_height = 345
+                    assign grid_item_width = 'small--one-half medium-up--one-third'
+                    when 4
+                    assign max_height = 250
+                    assign grid_item_width = 'small--one-half medium-up--one-quarter'
+                    when 5
+                    assign max_height = 195
+                    assign grid_item_width = 'small--one-half medium-up--one-fifth'
+                    endcase
+
+                    assign product_limit = block.settings.grid | times: block.settings.rows
+                    -%}
+                    <ul class="grid grid--uniform grid--view-items">
+                        {% for product in collection.products limit: product_limit %}
+                        <li class="grid__item grid__item--{{section.id}} {{ grid_item_width }}">
+                            {% include 'product-card-grid', max_height: max_height, product: product, show_vendor: block.settings.show_vendor %}
+                        </li>
+                        {% else %}
+
+                        {% for i in (1..product_limit) %}
+                        <li class="grid__item grid__item--{{section.id}} {{ grid_item_width }}">
+                            <div class="grid-view-item product-card">
+                                <a class="grid-view-item__link grid-view-item__image-container full-width-link" href="#">
+                                    <span class="visually-hidden">{{ 'homepage.onboarding.product_title' | t }}</span>
+                                </a>
+                                <div class="grid-view-item__image-wrapper">
+                                    {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                                    {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                                </div>
+                                <div class="h4 grid-view-item__title" aria-hidden="true">{{ 'homepage.onboarding.product_title' | t }}</div>
+                                {% include 'product-price' %}
+                            </div>
+                        </li>
+                        {% endfor %}
+                        {% endfor %}
+                    </ul>
+                    {% endcase%}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .tabs {
+        display: flex;
+        position: relative;
+        gap: 5px;
+    }
+
+    .tabs .line {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 6px;
+        border-radius: 15px;
+        background-color: {{ section.settings.line_color }};
+        transition: all 0.2s ease;
+    }
+
+    .tab-item {
+        min-width: 80px;
+        padding: 16px 20px 11px 20px;
+        font-size: 20px;
+        text-align: center;
+        flex: 1;
+        color: {{ section.settings.button_color }};
+        background-color: {{ section.settings.button_background }};
+        cursor: pointer;
+        transition: all 0.5s ease;
+    }
+
+    .tab-icon {
+        font-size: 24px;
+        width: 32px;
+        position: relative;
+        top: 2px;
+    }
+    .tab-item.active,
+    .tab-item:hover {
+        color: {{ section.settings.button_hover_color }};
+        background-color: {{ section.settings.button_hover_background }};
+    }
+    .tab-content {
+        padding: 28px 0;
+    }
+
+    .tab-pane {
+        color: #333;
+        display: none;
+    }
+
+    .tab-pane.active {
+        display: block;
+    }
+
+    .tab-pane h2 {
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+</style>
+
+
 {% schema %}
 {
-  "name": "collection_data",
-  "tag": "section",
-  "class": "section section-collection-list",
-  "max_blocks": 15,
-  "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "default": "Collections",
-      "label": "t:sections.collection-list.settings.title.label"
-    },
-    {
-      "type": "select",
-      "id": "heading_size",
-      "options": [
+    "name": "Tab Section",
+    "max_blocks": 5,
+    "settings": [
         {
-          "value": "h2",
-          "label": "t:sections.all.heading_size.options__1.label"
+        "type": "text",
+        "id": "section_title",
+        "label": "Heading",
+        "default": "Talk about your brand"
+      },
+      {
+        "type": "richtext",
+        "id": "subheading",
+        "label":  "Subheading",
+        "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+      },
+      {
+          "type": "header",
+          "content": "Tab Settings"
+      },
+      {
+          "type": "color",
+          "id": "button_color",
+          "label": "Button color",
+          "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "button_background",
+        "label": "Button background",
+        "default": "#3a3a3a"
         },
         {
-          "value": "h1",
-          "label": "t:sections.all.heading_size.options__2.label"
+            "type": "color",
+            "id": "button_hover_color",
+            "label": "Hover color",
+            "default": "#3a3a3a"
         },
         {
-          "value": "h0",
-          "label": "t:sections.all.heading_size.options__3.label"
+          "type": "color",
+          "id": "button_hover_background",
+          "label": "Hover background",
+          "default": "#fed7e0"
         }
-      ],
-      "default": "h1",
-      "label": "t:sections.all.heading_size.label"
-    },
-    {
-      "type": "select",
-      "id": "image_ratio",
-      "options": [
+    ],
+    "blocks": [
         {
-          "value": "adapt",
-          "label": "t:sections.collection-list.settings.image_ratio.options__1.label"
+            "type": "image",
+            "name": "Block image",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading",
+                    "default": "Tab heading"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "url",
+                    "id": "image_url",
+                    "label": "Link"
+                }
+            ]
         },
         {
-          "value": "portrait",
-          "label": "t:sections.collection-list.settings.image_ratio.options__2.label"
+            "type": "html",
+            "name": "Block html",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading",
+                    "default": "Tab heading"
+                },
+                {
+                    "type": "html",
+                    "id": "html",
+                    "label": "HTML code"
+                }
+            ]
         },
         {
-          "value": "square",
-          "label": "t:sections.collection-list.settings.image_ratio.options__3.label"
+            "type": "liquid",
+            "name": "Block liquid",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading",
+                    "default": "Tab heading"
+                },
+                {
+                    "type": "liquid",
+                    "id": "liquid",
+                    "label": "Liquid code"
+                }
+            ]
+        },
+        {
+            "type": "collection",
+            "name": "Block collection",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading",
+                    "default": "Tab heading"
+                },
+                {
+                    "type": "collection",
+                    "id": "collection",
+                    "label": "collection"
+                },
+                {
+                    "type": "range",
+                    "id": "grid",
+                    "label": "Products per row",
+                    "min": 2,
+                    "max": 5,
+                    "step": 1,
+                    "default": 3
+                },
+                {
+                    "type": "range",
+                    "id": "rows",
+                    "label": "Rows",
+                    "min": 1,
+                    "max": 5,
+                    "step": 1,
+                    "default": 2
+                }
+            ]
         }
-      ],
-      "default": "square",
-      "label": "t:sections.collection-list.settings.image_ratio.label",
-      "info": "t:sections.collection-list.settings.image_ratio.info"
-    },
-    {
-      "type": "range",
-      "id": "columns_desktop",
-      "min": 1,
-      "max": 5,
-      "step": 1,
-      "default": 3,
-      "label": "t:sections.collection-list.settings.columns_desktop.label"
-    },
-    {
-      "type": "select",
-      "id": "color_scheme",
-      "options": [
+    ],
+    "presets": [
         {
-          "value": "accent-1",
-          "label": "t:sections.all.colors.accent_1.label"
-        },
-        {
-          "value": "accent-2",
-          "label": "t:sections.all.colors.accent_2.label"
-        },
-        {
-          "value": "background-1",
-          "label": "t:sections.all.colors.background_1.label"
-        },
-        {
-          "value": "background-2",
-          "label": "t:sections.all.colors.background_2.label"
-        },
-        {
-          "value": "inverse",
-          "label": "t:sections.all.colors.inverse.label"
+            "name": "Tab Section",
+            "category": "Tab Section"
         }
-      ],
-      "default": "background-1",
-      "label": "t:sections.all.colors.label",
-      "info": "t:sections.all.colors.has_cards_info"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_view_all",
-      "default": false,
-      "label": "t:sections.collection-list.settings.show_view_all.label"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.collection-list.settings.header_mobile.content"
-    },
-    {
-      "type": "select",
-      "id": "columns_mobile",
-      "options": [
-        {
-          "value": "1",
-          "label": "t:sections.collection-list.settings.columns_mobile.options__1.label"
-        },
-        {
-          "value": "2",
-          "label": "t:sections.collection-list.settings.columns_mobile.options__2.label"
-        }
-      ],
-      "default": "1",
-      "label": "t:sections.collection-list.settings.columns_mobile.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "swipe_on_mobile",
-      "default": false,
-      "label": "t:sections.collection-list.settings.swipe_on_mobile.label"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 36
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 36
-    }
-  ],
-  "blocks": [
-    {
-      "type": "featured_collection",
-      "name": "t:sections.collection-list.blocks.featured_collection.name",
-      "settings": [
-        {
-          "type": "collection",
-          "id": "collection",
-          "label": "t:sections.collection-list.blocks.featured_collection.settings.collection.label"
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "t:sections.collection-list.presets.name",
-      "blocks": [
-        {
-          "type": "featured_collection"
-        },
-        {
-          "type": "featured_collection"
-        },
-        {
-          "type": "featured_collection"
-        }
-      ]
-    }
-  ]
+    ]
 }
 {% endschema %}
-<div class="container">
-  <ul class="container--tabs"> 
-       {%- for block in section.blocks -%}
-      <li class="tab">{{ block.settings.collection |upcase   }}</li>
-    {%- endfor -%}
-      </ul>
-  <div class="container--content">
-        <!--tab  1 -->
-    <div class="content content--active">
-            <ul class="collection-list contains-card{% if settings.card_style == 'standard' %} contains-card--standard{% endif %} grid{% if section.settings.columns_desktop == 1 %} grid--full-width{% else %} grid--{{ section.settings.columns_desktop }}-col-desktop{% endif %} grid--{{ section.settings.columns_mobile }}-col-tablet-down{% if section.settings.swipe_on_mobile %} slider slider--tablet grid--peek{% endif %} collection-list--{{ section.blocks.size }}-items"
-        id="Slider-{{ section.id }}"
-     role="grid">
-        {%- liquid
-          assign columns = section.blocks.size
-          if columns > 3
-            assign columns = 3
-          endif
-        -%}
-        {%- for block in section.blocks -%}
-               {% if block.settings.collection contains 'bedding' %}
-          <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="collection-list__item grid__item{% if show_mobile_slider %} slider__slide{% endif %}{% if block.settings.collection.featured_image == nil %} collection-list__item--no-media{% endif %}" {{ block.shopify_attributes }}>
-          {% render 'card-collection', card_collection: block.settings.collection , media_aspect_ratio: section.settings.image_ratio, columns: columns,description:block.settings.description %}
-          </li>
-                {% endif %}
-        {%- endfor -%}
-      </ul>
-    </div>
-<!--      tab 2  -->
-      <div class="content content">
-            <ul class="collection-list contains-card{% if settings.card_style == 'standard' %} contains-card--standard{% endif %} grid{% if section.settings.columns_desktop == 1 %} grid--full-width{% else %} grid--{{ section.settings.columns_desktop }}-col-desktop{% endif %} grid--{{ section.settings.columns_mobile }}-col-tablet-down{% if section.settings.swipe_on_mobile %} slider slider--tablet grid--peek{% endif %} collection-list--{{ section.blocks.size }}-items"
-        id="Slider-{{ section.id }}"
-        role="grid"
-      >
-        {%- liquid
-          assign columns = section.blocks.size
-          if columns > 3
-            assign columns = 3
-          endif
-        -%}
-        {%- for block in section.blocks -%}
-          <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="collection-list__item grid__item{% if show_mobile_slider %} slider__slide{% endif %}{% if block.settings.collection.featured_image == nil %} collection-list__item--no-media{% endif %}" {{ block.shopify_attributes }}>
-            {% if block.settings.collection contains 'bedroom' %}
-           
-             {% render 'card-collection', card_collection: block.settings.collection , media_aspect_ratio: section.settings.image_ratio, columns: columns %}
-         {% endif %}
-              </li>
-              
-        {%- endfor -%}
-      </ul>
-    </div>
-      
-<!--    tab 3 -->
-      <div class="content content">
-            <ul class="collection-list contains-card{% if settings.card_style == 'standard' %} contains-card--standard{% endif %} grid{% if section.settings.columns_desktop == 1 %} grid--full-width{% else %} grid--{{ section.settings.columns_desktop }}-col-desktop{% endif %} grid--{{ section.settings.columns_mobile }}-col-tablet-down{% if section.settings.swipe_on_mobile %} slider slider--tablet grid--peek{% endif %} collection-list--{{ section.blocks.size }}-items"
-        id="Slider-{{ section.id }}"
-        role="grid"
-      >
-        {%- liquid
-          assign columns = section.blocks.size
-          if columns > 3
-            assign columns = 3
-          endif
-        -%}
-        {%- for block in section.blocks -%}
-          <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="collection-list__item grid__item{% if show_mobile_slider %} slider__slide{% endif %}{% if block.settings.collection.featured_image == nil %} collection-list__item--no-media{% endif %}" {{ block.shopify_attributes }}>
-            {% if block.settings.collection contains 'mattress' %}
-          
-            
-            {% render 'card-collection', card_collection: block.settings.collection , media_aspect_ratio: section.settings.image_ratio, columns: columns %}
-         {% endif %}
-              </li>
-              
-        {%- endfor -%}
-      </ul>
-    </div>
-  </div>
-</div>
-{% javascript %}
-const tabs = document.querySelectorAll(".tab");
-const contents = document.querySelectorAll(".content");
 
-for (let i = 0; i < tabs.length; i++) {
-  tabs[i].addEventListener("click", () => {
-    for (let j = 0; j < contents.length; j++) {
-      contents[j].classList.remove("content--active");
-    }
-    for (let jj = 0; jj < tabs.length; jj++) {
-      tabs[jj].classList.remove("tabs--active");
-    }
-    contents[i].classList.add("content--active");
-    tabs[i].classList.add("tabs--active");
-  });
-}
+<script >
+    window.onload = function() {
+        const $ = document.querySelector.bind(document);
+        const $$ = document.querySelectorAll.bind(document);
 
-{% endjavascript %}
+        const tabs = $$('.tab-item');
+        const panes = $$('.tab-pane');
+
+        const tabActive = $('.tab-item.active')
+        const line = $('.tabs .line');
+
+        function tabLine(t) {
+            line.style.left = t.offsetLeft + 'px';
+            line.style.width = t.offsetWidth + 'px';
+        }
+        console.log(tabActive.offsetWidth, 'donny')
+        // tabLine(tabActive);
+        tabs.forEach((tab, index) => {
+            const pane = panes[index];
+            tab.onclick = function () {
+                $('.tab-pane.active').classList.remove('active');
+                $('.tab-item.active').classList.remove('active');
+
+                // tabLine(this)
+
+                pane.classList.add('active');
+                this.classList.add('active')
+            }
+        })
+    }
+    
+</script>
