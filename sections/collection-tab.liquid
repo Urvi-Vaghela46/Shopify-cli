@@ -182,7 +182,7 @@
   {%- for block in section.blocks -%}
 	<ul class="container--tabs"> 
       <li class="tab">{{ block.settings.collection |upcase   }}</li>
- 		
+ 		{%- endfor -%}
       </ul>
 	<div class="container--content">
         <!--tab  1 -->
@@ -206,7 +206,6 @@
       </ul>
 		</div>
 </div>
-   {%- endfor -%}
 {% javascript %}
 const tabs = document.querySelectorAll(".tab");
 const contents = document.querySelectorAll(".content");
