@@ -249,41 +249,35 @@
     "16500196998c22a60f": {
       "type": "collection-tab",
       "blocks": {
-        "1650019699a29633c9-0": {
-          "type": "featured_collection",
+        "096924d7-3291-4bec-a94d-470ea0d2c682": {
+          "type": "collection",
           "settings": {
-            "collection": "bedding"
+            "heading": "Tab heading",
+            "collection": "bedding",
+            "grid": 2,
+            "rows": 1
           }
         },
-        "1650019699a29633c9-1": {
-          "type": "featured_collection",
+        "32001a3f-b050-4207-a5e0-f4946f8e7892": {
+          "type": "image",
           "settings": {
-            "collection": "bedroom"
-          }
-        },
-        "1650019699a29633c9-2": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "mattress"
+            "heading": "hello",
+            "image": "shopify:\/\/shop_images\/person-stands-on-rocks-poking-out-of-the-ocean-shoreline.jpg",
+            "image_url": ""
           }
         }
       },
       "block_order": [
-        "1650019699a29633c9-0",
-        "1650019699a29633c9-1",
-        "1650019699a29633c9-2"
+        "096924d7-3291-4bec-a94d-470ea0d2c682",
+        "32001a3f-b050-4207-a5e0-f4946f8e7892"
       ],
       "settings": {
-        "title": "hello bhau",
-        "heading_size": "h1",
-        "image_ratio": "square",
-        "columns_desktop": 3,
-        "color_scheme": "background-1",
-        "show_view_all": false,
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "section_title": "Talk about your brand",
+        "subheading": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.<\/p>",
+        "button_color": "#ffffff",
+        "button_background": "#3a3a3a",
+        "button_hover_color": "#3a3a3a",
+        "button_hover_background": "#fed7e0"
       }
     }
   },
